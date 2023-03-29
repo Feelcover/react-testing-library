@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import App from "./App";
 
 describe("app test", () => {
@@ -10,10 +11,8 @@ describe("app test", () => {
     // expect(helloWorldEl).toBeInTheDocument();
     // expect(button).toBeInTheDocument();
     // expect(input).toMatchSnapshot();
-    screen.debug();
      const helloWorldEl = await screen.findByText(/qweqwe/i);
      expect(helloWorldEl).toBeInTheDocument();
-    screen.debug();
   }),
   test("click", async () => {
     render(<App />);
@@ -27,12 +26,14 @@ describe("app test", () => {
   test("input", () => {
     render(<App />);
     const input = screen.getByPlaceholderText(/введите значение.../i);
-    screen.debug();
     expect(screen.queryByTestId("value-elem")).toContainHTML("");
-    screen.debug();
-    fireEvent.input(input, {
-      target: { value: "qweqwe" },
-    });
+    //Искуственное событие
+    // fireEvent.input(input, {
+    //   target: { value: "qweqwe" },
+    // });
+    //Приближенное к пользовательскому событие
+    userEvent.type(input, "qweqwe");
+
     expect(screen.queryByTestId("value-elem")).toContainHTML('qweqwe');
   });
 });

@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
 import "./App.css";
+import Users from "./Users/Users";
 
 function App() {
   const [data, setData] = useState(null);
   const [toggle, setToggle] = useState(false);
   const [value, setValue] = useState("");
-  console.log(value);
-  const onClick = (e) => {
+  const onClick = () => {
     setToggle(!toggle);
   };
   useEffect(() => {
