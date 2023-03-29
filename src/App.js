@@ -1,30 +1,21 @@
-import { useState, useEffect } from "react";
-import "./App.css";
-import Users from "./Users/Users";
+import React from 'react'
+import { Routes,Route, Link, BrowserRouter } from 'react-router-dom'
+import AboutPage from './pages/AboutPage'
+import ErrorPage from './pages/ErrorPage'
+import MainPage from './pages/MainPage'
 
-function App() {
-  const [data, setData] = useState(null);
-  const [toggle, setToggle] = useState(false);
-  const [value, setValue] = useState("");
-  const onClick = () => {
-    setToggle(!toggle);
-  };
-  useEffect(() => {
-    setTimeout(() => {
-      setData({});
-    }, 100);
-  }, []);
+const App = () => {
   return (
-    <div>
-      <h1 data-testid="value-elem">{value}</h1>
-      {toggle && <div data-testid="toggle-elem">TOGGLE</div>}
-      {data && <div>qweqwe</div>}
-      <h1>Hello world</h1>
-      <button data-testid="toggle-btn" onClick={onClick}>click</button>
-      <input type="text" placeholder="введите значение..."  
-      onChange={e=>setValue(e.target.value)}/>
+   <div>
+    <Link to='/' data-testid="main-link" >MainPage</Link>
+    <Link to='/about' data-testid="about-link">AboutPage</Link>
+    <Routes>
+      <Route path='/' element={<MainPage/>}/>
+      <Route path='/about' element={<AboutPage/>}/>
+      <Route path='*' element={<ErrorPage/>}/>
+    </Routes>
     </div>
-  );
+  )
 }
 
-export default App;
+export default App
