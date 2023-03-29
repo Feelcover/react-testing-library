@@ -4,6 +4,8 @@ import "./App.css";
 function App() {
   const [data, setData] = useState(null);
   const [toggle, setToggle] = useState(false);
+  const [value, setValue] = useState("");
+  console.log(value);
   const onClick = (e) => {
     setToggle(!toggle);
   };
@@ -13,12 +15,14 @@ function App() {
     }, 100);
   }, []);
   return (
-    <div className="App">
+    <div>
+      <h1 data-testid="value-elem">{value}</h1>
       {toggle && <div data-testid="toggle-elem">TOGGLE</div>}
       {data && <div>qweqwe</div>}
       <h1>Hello world</h1>
       <button data-testid="toggle-btn" onClick={onClick}>click</button>
-      <input type="text" placeholder="введите значение..." />
+      <input type="text" placeholder="введите значение..."  
+      onChange={e=>setValue(e.target.value)}/>
     </div>
   );
 }

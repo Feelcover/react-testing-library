@@ -14,7 +14,7 @@ describe("app test", () => {
      const helloWorldEl = await screen.findByText(/qweqwe/i);
      expect(helloWorldEl).toBeInTheDocument();
     screen.debug();
-  });
+  }),
   test("click", async () => {
     render(<App />);
     const btn = screen.getByTestId("toggle-btn");
@@ -23,5 +23,16 @@ describe("app test", () => {
     expect(screen.queryByTestId("toggle-elem")).toBeInTheDocument();
     fireEvent.click(btn);
     expect(screen.queryByTestId("toggle-elem")).toBeNull();
+  }),
+  test("input", () => {
+    render(<App />);
+    const input = screen.getByPlaceholderText(/введите значение.../i);
+    screen.debug();
+    expect(screen.queryByTestId("value-elem")).toContainHTML("");
+    screen.debug();
+    fireEvent.input(input, {
+      target: { value: "qweqwe" },
+    });
+    expect(screen.queryByTestId("value-elem")).toContainHTML('qweqwe');
   });
 });
